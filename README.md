@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Team Members
+
+- Carlos Ayala
+- Marieth Pérez
+- Valeria Vassallo
+
 ## Available Scripts
 
 In the project directory, you can run:
