@@ -1,4 +1,15 @@
-const initialState = {};
+const initialState = {
+  categories: [
+    "food",
+    "entertainment",
+    "transportation",
+    "services",
+    "salary",
+    "extraIncome"
+  ],
+  transactions: {},
+  results: {}
+};
 
 function reducer(state = initialState, action = {}) {
   switch (action.type) {
