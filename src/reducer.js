@@ -1,40 +1,40 @@
 const initialState = {
   categories: [
-    "food",
-    "entertainment",
-    "transportation",
-    "services",
-    "salary",
-    "extraIncome"
+    "Food",
+    "Entertainment",
+    "Transportation",
+    "Services",
+    "Salary",
+    "ExtraIncome"
   ],
   transactions: {
     "2019-05-01": {
       id: "2019-05-01",
-      categories: "salary",
+      category: "Salary",
       amount: 2200,
       type: "ingresses"
     },
     "2019-05-02": {
       id: "2019-05-02",
-      categories: "food",
+      category: "Food",
       amount: -200,
       type: "withdraws"
     },
     "2019-06-01": {
       id: "2019-06-01",
-      categories: "food",
+      category: "Food",
       amount: -500,
       type: "withdraws"
     },
     "2019-06-02": {
       id: "2019-06-02",
-      categories: "food",
+      category: "Food",
       amount: -200,
       type: "withdraws"
     },
     "2019-06-03": {
       id: "2019-06-03",
-      categories: "salary",
+      category: "Salary",
       amount: 1200,
       type: "ingresses"
     }
@@ -59,6 +59,15 @@ const initialState = {
 
 function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    case "ADD_TRANSACTION": {
+      return {
+        ...state,
+        transactions: {
+          ...state.transactions,
+          [action.payload.transaction.id]: action.payload.transaction
+        }
+      };
+    }
     case "RESET": {
       return initialState;
     }
