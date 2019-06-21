@@ -1,53 +1,71 @@
 /** @jsx jsx */
 import React from "react";
 import { jsx } from "@emotion/core";
+import { useCategories } from "../selectors";
+import { navigate } from "@reach/router";
+import { useAddTransaction } from "../action-hooks";
 
-function NewTransaction(props) {
-  function handleAmount(event) {
-    // props.setAmount(event.target.value);
+function NewTransaction() {
+  const addTransaction = useAddTransaction();
+  const categories = useCategories();
+  // function handleAmount(event) {
+  //   // props.setAmount(event.target.value);
+  // }
+
+  function toJSON(elements) {
+    var obj = {};
+    for (var i = 0; i < elements.length; ++i) {
+      var element = elements[i];
+      var name = element.name;
+      var value = element.value;
+
+      if (element.type === "radio") {
+        if (element.checked) {
+          obj[name] = value;
+        }
+      } else {
+        if (name) {
+          obj[name] = value;
+        }
+      }
+    }
+
+    return obj;
   }
 
-  function handleCategories(event) {
-    // props.selectCategory(event.target.value);
+  function handleSubmit(event) {
+    event.preventDefault();
+    const data = toJSON(event.target.elements);
+    if (data.type === "withdraws") {
+      data.amount = data.amount * -1;
+    } else {
+      data.amount = data.amount * 1;
+    }
+    Object.assign(data, { id: Date.now() });
+    addTransaction(data);
+    navigate(`/transactions/1`);
   }
-
-  function handleTypes(event) {}
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label htmlFor="amount">
-        <input type="number" onChange={handleAmount} />
+        <input type="number" min="0" name="amount" />
       </label>
       <label htmlFor="category">
-        <select onChange={handleCategories} value={props.category}>
-          <option value="NONE">Choose a category</option>
-          <option value="FOOD">Food</option>
-          <option value="ENTERTAINMENT">Entertainment</option>
-          <option value="TRANSPORTATION">Transportation</option>
-          <option value="SERVICES">Services</option>
-          <option value="SALARY">Salary</option>
-          <option value="EXTRAINCOME">Extra Income</option>
+        <select name="category">
+          <option disabled>Choose a category</option>
+          {categories.map(category => {
+            return <option value={category}>{category}</option>;
+          })}
         </select>
       </label>
       <fieldset>
-        <input
-          type="radio"
-          id="income"
-          name="trasactionType"
-          value="income"
-          onChange={handleTypes}
-        />
-        <label htmlFor="income">Income</label>
-        <input
-          type="radio"
-          id="withdraw"
-          name="transactionType"
-          value="withdra"
-          onChange={handleTypes}
-        />
+        <input type="radio" id="ingress" name="type" value="ingresses" />
+        <label htmlFor="ingress">Income</label>
+        <input type="radio" id="withdraw" name="type" value="withdraws" />
         <label htmlFor="withdraw">Withdraw</label>
       </fieldset>
-      <button
+      <input
         type="submit"
         css={{
           display: "block",
@@ -63,9 +81,7 @@ function NewTransaction(props) {
             backgroundColor: "#33FF33"
           }
         }}
-      >
-        Submit
-      </button>
+      />
     </form>
   );
 }
