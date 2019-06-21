@@ -9,4 +9,8 @@ function useCategories() {
   return useSelector(state => state.categories, shallowEqual);
 }
 
-export { useResults, useCategories };
+function useTransactions() {
+  return useSelector(state => Object.values(state.transactions), shallowEqual);
+}
+
+export { useResults, useCategories, useTransactions };
