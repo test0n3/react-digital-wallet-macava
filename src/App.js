@@ -10,7 +10,8 @@ function App() {
       <main>
         <Router>
           <Dashboard path="/" />
-          <Transactions path="/transactions/:id" />
+          {/* <Transactions path="/transactions/:id" /> */}
+          <Transactions path="/transactions" />
           <NewTransactions path="/new-transactions" />
         </Router>
       </main>
