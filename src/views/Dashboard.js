@@ -1,9 +1,9 @@
 import React from "react";
-import { useResults } from "../selectors";
+import { useTotalBalance } from "../selectors";
 import { navigate } from "@reach/router";
 
 function Dashboard() {
-  const results = useResults();
+  const totalBalance = useTotalBalance();
 
   function handleClick(event) {
     event.preventDefault();
@@ -15,7 +15,7 @@ function Dashboard() {
       <div>
         <div>
           <span>Balance</span>
-          <div>{results[results.length - 1].finalBalance}</div>
+          <div>{totalBalance}</div>
         </div>
         <button onClick={handleClick}>New Transaction</button>
       </div>
@@ -32,22 +32,22 @@ function Dashboard() {
               <th> Final Balance</th>
             </tr>
           </thead>
-          <tbody>
+          {/* <tbody>
             {results.map((result, index) => {
               const splittedId = result.id.split("-");
               const month = splittedId[1];
               return (
-                <tr>
-                  <th key={index}>{new Date(index).getFullYear()}</th>
-                  <th key={index}> {month}</th>
-                  <th key={index}> {result.initialBalance}</th>
-                  <th key={index}> {result.ingresses}</th>
-                  <th key={index}> {result.withdraws}</th>
-                  <th key={index}> {result.finalBalance}</th>
+                <tr key={result.id}>
+                  <th>{new Date(index).getFullYear()}</th>
+                  <th> {month}</th>
+                  <th> {result.initialBalance}</th>
+                  <th> {result.ingresses}</th>
+                  <th> {result.withdraws}</th>
+                  <th> {result.finalBalance}</th>
                 </tr>
               );
             })}
-          </tbody>
+          </tbody> */}
         </table>
       </div>
     </>
