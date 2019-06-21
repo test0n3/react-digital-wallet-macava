@@ -1,9 +1,14 @@
 import React from "react";
 import { useResults } from "../selectors";
+import { navigate } from "@reach/router";
 
 function Dashboard() {
   const results = useResults();
-  console.log(results[results.length - 1].finalBalance);
+
+  function handleClick(event) {
+    event.preventDefault();
+    navigate("/new-transactions");
+  }
 
   return (
     <>
@@ -12,7 +17,7 @@ function Dashboard() {
           <span>Balance</span>
           <div>{results[results.length - 1].finalBalance}</div>
         </div>
-        <button>New Transaction</button>
+        <button onClick={handleClick}>New Transaction</button>
       </div>
       <div> Ingresses and withdraws per month </div>
       <div>

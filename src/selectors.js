@@ -5,4 +5,8 @@ function useResults() {
   return useSelector(state => Object.values(state.results), shallowEqual);
 }
 
-export { useResults };
+function useCategories() {
+  return useSelector(state => state.categories, shallowEqual);
+}
+
+export { useResults, useCategories };
