@@ -21,6 +21,12 @@ function NewTransaction(props) {
       <label htmlFor="category">
         <select onChange={handleCategories} value={props.category}>
           <option value="NONE">Choose a category</option>
+          <option value="FOOD">Food</option>
+          <option value="ENTERTAINMENT">Entertainment</option>
+          <option value="TRANSPORTATION">Transportation</option>
+          <option value="SERVICES">Services</option>
+          <option value="SALARY">Salary</option>
+          <option value="EXTRAINCOME">Extra Income</option>
         </select>
       </label>
       <fieldset>
