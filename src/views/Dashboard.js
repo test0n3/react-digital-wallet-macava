@@ -1,21 +1,90 @@
 import React from "react";
 import { useTotalBalance, useTransactions } from "../selectors";
 import { navigate } from "@reach/router";
+import Transactions from "./Transactions";
 
 function Dashboard() {
   const totalBalance = useTotalBalance();
   const transactions = useTransactions();
 
-  console.log(
-    transactions.map(transaction => [
-      new Date(transaction.id).getMonth() + 1,
-      new Date(1556755200000).getFullYear()
-    ])
-  );
+  function minDate(transactions) {
+    const dates = transactions.map(transaction => new Date(transaction.id));
+    var min = dates.reduce(function(a, b) {
+      return a < b ? a : b;
+    });
 
-  // React.useEffect(() => {
-  //   console.log(transactions.map(transaction => new Date(transaction.id).getMonth()))
-  // }, []);
+    return min;
+  }
+
+  const min = minDate(transactions);
+  var compareMonth = min.getMonth() + 1;
+  var compareYear = min.getFullYear();
+  var results = [];
+  let result = {
+    month: "",
+    year: "",
+    ingresses: 0,
+    withdraws: 0,
+    balance: 0,
+    initialBalance: 0
+  };
+
+  let ingresses = 0;
+  let withdraws = 0;
+  for (var i = 0; i < transactions.length; i++) {
+    if (
+      compareMonth === new Date(transactions[i].id).getMonth() + 1 &&
+      compareYear === new Date(transactions[i].id).getFullYear()
+    ) {
+      if (transactions[i].type === "ingresses") {
+        ingresses += transactions[i].amount;
+      } else {
+        withdraws += transactions[i].amount;
+      }
+      Object.assign(result, {
+        month: compareMonth,
+        year: compareYear,
+        ingresses: ingresses,
+        withdraws: withdraws,
+        balance: ingresses + withdraws
+      });
+    } else {
+      results.push(result);
+      result = {};
+      compareMonth = new Date(transactions[i].id).getMonth() + 1;
+      compareYear = new Date(transactions[i].id).getFullYear();
+      ingresses = 0;
+      withdraws = 0;
+      if (transactions[i].type === "ingresses") {
+        ingresses += transactions[i].amount;
+      } else {
+        withdraws += transactions[i].amount;
+      }
+    }
+  }
+  if (result.hasOwnProperty("month")) {
+    results.push(result);
+  } else {
+    Object.assign(result, {
+      month: compareMonth,
+      year: compareYear,
+      ingresses: ingresses,
+      withdraws: withdraws,
+      balance: ingresses + withdraws
+    });
+
+    results = results.concat(result);
+  }
+
+  for (var i = 0; i < results.length; i++) {
+    if (i !== 0) {
+      var previous = results[i === 0 ? results.length - 1 : i - 1];
+      Object.assign(results[i], {
+        initialBalance: previous.balance,
+        balance: ingresses + withdraws + previous.balance
+      });
+    }
+  }
 
   function handleClick(event) {
     event.preventDefault();
@@ -44,22 +113,20 @@ function Dashboard() {
               <th> Final Balance</th>
             </tr>
           </thead>
-          {/* <tbody>
+          <tbody>
             {results.map((result, index) => {
-              const splittedId = result.id.split("-");
-              const month = splittedId[1];
               return (
                 <tr key={result.id}>
-                  <th>{new Date(index).getFullYear()}</th>
-                  <th> {month}</th>
+                  <th>{result.year}</th>
+                  <th> {result.month}</th>
                   <th> {result.initialBalance}</th>
                   <th> {result.ingresses}</th>
                   <th> {result.withdraws}</th>
-                  <th> {result.finalBalance}</th>
+                  <th> {result.balance}</th>
                 </tr>
               );
             })}
-          </tbody> */}
+          </tbody>
         </table>
       </div>
     </>

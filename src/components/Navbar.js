@@ -26,13 +26,13 @@ function Nabvar() {
   };
 
   return (
-    <navbar css={navbarCss}>
+    <nav css={navbarCss}>
       <div css={logoCss}>
         <Link css={{ textDecoration: "none", color: "black" }} to="/">
           E-Wallet-MACAVA
         </Link>
       </div>
-    </navbar>
+    </nav>
   );
 }
 
