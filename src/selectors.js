@@ -12,5 +12,14 @@ function useCategories() {
 function useTransactions() {
   return useSelector(state => Object.values(state.transactions), shallowEqual);
 }
+function useTotalBalance() {
+  return useSelector(
+    state =>
+      Object.values(state.transactions).reduce((acc, item) => {
+        return acc + item.amount;
+      }, 0),
+    shallowEqual
+  );
+}
 
-export { useResults, useCategories, useTransactions };
+export { useResults, useCategories, useTransactions, useTotalBalance };
