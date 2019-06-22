@@ -1,6 +1,6 @@
 import React from "react";
 import { useTotalBalance, useTransactions } from "../selectors";
-import { navigate } from "@reach/router";
+import { navigate, Link } from "@reach/router";
 import Transactions from "./Transactions";
 
 function Dashboard() {
@@ -105,24 +105,28 @@ function Dashboard() {
         <table>
           <thead>
             <tr>
-              <th> Year</th>
-              <th> Month</th>
-              <th> Initial Balance</th>
-              <th> Ingresses</th>
-              <th> Withdraws</th>
-              <th> Final Balance</th>
+              <th>Year</th>
+              <th>Month</th>
+              <th>Initial Balance</th>
+              <th>Ingresses</th>
+              <th>Withdraws</th>
+              <th>Final Balance</th>
             </tr>
           </thead>
           <tbody>
-            {results.map((result, index) => {
+            {results.map(result => {
               return (
                 <tr key={result.id}>
                   <th>{result.year}</th>
-                  <th> {result.month}</th>
-                  <th> {result.initialBalance}</th>
-                  <th> {result.ingresses}</th>
-                  <th> {result.withdraws}</th>
-                  <th> {result.balance}</th>
+                  <th>
+                    <Link to={`/transactions/${result.year}-${result.month}`}>
+                      {result.month}
+                    </Link>
+                  </th>
+                  <th>{result.initialBalance}</th>
+                  <th>{result.ingresses}</th>
+                  <th>{result.withdraws}</th>
+                  <th>{result.balance}</th>
                 </tr>
               );
             })}
