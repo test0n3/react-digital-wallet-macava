@@ -8,6 +8,8 @@ import NewTransactions from "./views/NewTransactions";
 import Navbar from "./components/Navbar";
 
 function App() {
+  const date = "2019-05";
+
   return (
     <>
       <Global
@@ -23,7 +25,7 @@ function App() {
         <Router>
           <Dashboard path="/" />
           {/* <Transactions path="/transactions/:id" /> */}
-          <Transactions path="/transactions" />
+          <Transactions path="/transactions" date={date} />
           <NewTransactions path="/new-transactions" />
         </Router>
       </main>

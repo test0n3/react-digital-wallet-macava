@@ -1,5 +1,5 @@
 /** @jsx jsx */
-
+import React from "react";
 import { jsx } from "@emotion/core";
 import { useTransactions } from "../selectors";
 
@@ -7,34 +7,83 @@ import { useTransactions } from "../selectors";
 
 function Transactions({ date }) {
   const transactions = useTransactions();
-  console.table("Transaccions:", transactions);
-  const monthTransactions = dateManager(date);
+  console.log("TransactionManager", transactionManager(date));
+  console.log("Balance alone:", balance());
+  console.log("Initial Balance alone:", initialBalance(date));
+  console.log(
+    "Complete balance:",
+    initialBalance(startMonth(date)) + balance()
+  );
 
-  function nextMonth(date) {
-    console.log("data nextMonth:", date);
-    return new Date(date).setMonth(new Date(date).getMonth() + 1);
+  function startMonth(currentDate) {
+    // return first day of required month
+    const initialMonth = new Date(currentDate).setDate(1);
+    // console.log("Start month:", new Date(initialMonth));
+    return initialMonth;
   }
 
-  function initialBalance(date) {
-    return void 0;
+  function nextMonth(currentDate) {
+    // returns first day of next month
+    const firstDay = new Date(currentDate).setDate(1);
+    const nextMonth = new Date(firstDay).setMonth(
+      new Date(firstDay).getMonth() + 1
+    );
+    // console.log("Next Month:", new Date(firstDay));
+    return nextMonth;
+  }
+  function formatTransactionDate(transacDate) {
+    // returns date like YYYY/MM/DD
+    const transDate = new Date(transacDate);
+    const formatted =
+      transDate.getFullYear() +
+      "/" +
+      ((transDate.getMonth() + 1).toString().length === 1
+        ? "0" + (transDate.getMonth() + 1)
+        : transDate.getMonth() + 1) +
+      "/" +
+      (transDate.getDate().toString().length === 1
+        ? "0" + transDate.getDate()
+        : transDate.getDate());
+    // console.log("formatted:", formatted);
+
+    return formatted;
   }
 
-  function dateManager(expectedDate) {
-    let monthTransactions = [];
-    console.log("Fecha pasada:", expectedDate);
-    const newDate = Date.parse(expectedDate);
-    console.log("fecha filtro:", newDate);
-    for (let key in transactions) {
-      if (
-        Date.parse(key) > newDate &&
-        Date.parse(key) < nextMonth(expectedDate)
-      )
-        monthTransactions.push(transactions[key]);
-    }
-    console.log(monthTransactions);
-    return monthTransactions;
+  function initialBalance(month) {
+    // calculate balances until initialDate
+
+    return transactions
+      .filter(transaction => transaction.id < month)
+      .reduce((accum, transaction) => {
+        return accum + transaction.amount;
+      }, 0);
   }
-  // function onButtonReturn() {}
+
+  function balance() {
+    return transactionManager(date).reduce((accum, transaction) => {
+      return accum + transaction.amount;
+    }, 0);
+  }
+
+  function transactionManager(selectedDate) {
+    // filters transactions for initialDate and nextMonth
+    const startDate = startMonth(selectedDate);
+    const lastDate = nextMonth(selectedDate);
+    // console.log(
+    //   `transactionManager\nstartDate: ${new Date(
+    //     startDate
+    //   )}\nlastDate: ${new Date(lastDate)}`
+    // );
+    return transactions.filter(transaction => {
+      // console.log(
+      //   `transaction Id: ${transaction.id}\n transaction amount: ${
+      //     transaction.amount
+      //   } transaction category: ${transaction.category}`
+      // );
+      return transaction.id >= startDate && transaction.id < lastDate;
+    });
+  }
+
   return (
     <>
       <table>
@@ -43,7 +92,15 @@ function Transactions({ date }) {
             <th>
               <span css={{ fontWeight: "bold" }}>Month:</span>
             </th>
-            <td colSpan="2">January 2019</td>
+            <td colSpan="2">
+              {String(
+                new Date(date).toLocaleDateString("default", {
+                  month: "long"
+                }) +
+                  " " +
+                  new Date(date).getFullYear()
+              )}
+            </td>
           </tr>
           <tr>
             <th>Date</th>
@@ -53,40 +110,34 @@ function Transactions({ date }) {
         </thead>
         <tbody>
           <tr>
-            <td>{new Date(date)}</td>
+            <td>{formatTransactionDate(startMonth(date))}</td>
             <td>Initial Balance</td>
-            <td>2100</td>
+            <td>{initialBalance(startMonth(date))}</td>
           </tr>
-          <tr>
-            <td>02/01/2019</td>
-            <td>Food</td>
-            <td>-500</td>
-          </tr>
-          <tr>
-            <td>03/01/2019</td>
-            <td>Food</td>
-            <td>-200</td>
-          </tr>
-          <tr>
-            <td>03/01/2019</td>
-            <td>Salary</td>
-            <td>1200</td>
-          </tr>
+          {transactionManager(date).map((day, index) => {
+            return (
+              <tr key={index}>
+                <td>{formatTransactionDate(day.id)}</td>
+                <td>{day.category}</td>
+                <td>{day.amount}</td>
+              </tr>
+            );
+          })}
         </tbody>
         <tfoot>
           <tr>
             <td colSpan="2">
               <span css={{ fontWeight: "bold" }}>Balance:</span>
             </td>
-            <td>2600</td>
+            <td>{initialBalance(startMonth(date)) + balance()}</td>
           </tr>
         </tfoot>
       </table>
+      <table />
       {/* <button type="button" onChange={onButtonReturn}>
-        Return
-      </button>*/}
+      Return
+    </button>*/}
     </>
   );
 }
-
 export default Transactions;
