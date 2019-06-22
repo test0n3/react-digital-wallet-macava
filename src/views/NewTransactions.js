@@ -8,9 +8,6 @@ import { useAddTransaction } from "../action-hooks";
 function NewTransaction() {
   const addTransaction = useAddTransaction();
   const categories = useCategories();
-  // function handleAmount(event) {
-  //   // props.setAmount(event.target.value);
-  // }
 
   function toJSON(elements) {
     var obj = {};
@@ -43,7 +40,9 @@ function NewTransaction() {
     }
     Object.assign(data, { id: Date.now() });
     addTransaction(data);
-    navigate(`/transactions/1`);
+    const month = new Date(data.id).getMonth() + 1;
+    const year = new Date(data.id).getFullYear();
+    navigate(`/transactions/${year}-${month}`);
   }
 
   return (

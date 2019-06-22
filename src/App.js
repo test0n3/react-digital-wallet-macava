@@ -24,8 +24,7 @@ function App() {
       <main>
         <Router>
           <Dashboard path="/" />
-          {/* <Transactions path="/transactions/:id" /> */}
-          <Transactions path="/transactions" date={date} />
+          <Transactions path="/transactions/:date" />
           <NewTransactions path="/new-transactions" />
         </Router>
       </main>
