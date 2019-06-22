@@ -1,5 +1,5 @@
 /** @jsx jsx */
-
+import React from "react";
 import { jsx } from "@emotion/core";
 import { useTransactions } from "../selectors";
 
@@ -7,12 +7,13 @@ import { useTransactions } from "../selectors";
 
 function Transactions({ date }) {
   const transactions = useTransactions();
-  console.log("Passed date:", new Date(date));
-  console.log("typeof passed date:", typeof new Date(date));
   console.log("TransactionManager", transactionManager(date));
   console.log("Balance alone:", balance());
   console.log("Initial Balance alone:", initialBalance(date));
-  console.log("Complete balance:", initialBalance(date) + balance());
+  console.log(
+    "Complete balance:",
+    initialBalance(startMonth(date)) + balance()
+  );
 
   function startMonth(currentDate) {
     // return first day of required month
@@ -128,7 +129,7 @@ function Transactions({ date }) {
             <td colSpan="2">
               <span css={{ fontWeight: "bold" }}>Balance:</span>
             </td>
-            <td>In process</td>
+            <td>{initialBalance(startMonth(date)) + balance()}</td>
           </tr>
         </tfoot>
       </table>
