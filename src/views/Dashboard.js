@@ -1,9 +1,21 @@
 import React from "react";
-import { useTotalBalance } from "../selectors";
+import { useTotalBalance, useTransactions } from "../selectors";
 import { navigate } from "@reach/router";
 
 function Dashboard() {
   const totalBalance = useTotalBalance();
+  const transactions = useTransactions();
+
+  console.log(
+    transactions.map(transaction => [
+      new Date(transaction.id).getMonth() + 1,
+      new Date(1556755200000).getFullYear()
+    ])
+  );
+
+  // React.useEffect(() => {
+  //   console.log(transactions.map(transaction => new Date(transaction.id).getMonth()))
+  // }, []);
 
   function handleClick(event) {
     event.preventDefault();
