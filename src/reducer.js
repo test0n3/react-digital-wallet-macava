@@ -8,32 +8,32 @@ const initialState = {
     "ExtraIncome"
   ],
   transactions: {
-    "2019-05-01": {
-      id: "2019-05-01",
+    1556755200000: {
+      id: 1556755200000,
       category: "Salary",
       amount: 2200,
       type: "ingresses"
     },
-    "2019-05-02": {
-      id: "2019-05-02",
+    1556841600000: {
+      id: 1556841600000,
       category: "Food",
       amount: -200,
       type: "withdraws"
     },
-    "2019-06-01": {
-      id: "2019-06-01",
+    1559433600000: {
+      id: 1559433600000,
       category: "Food",
       amount: -500,
       type: "withdraws"
     },
-    "2019-06-02": {
-      id: "2019-06-02",
+    1559520000000: {
+      id: 1559520000000,
       category: "Food",
       amount: -200,
       type: "withdraws"
     },
-    "2019-06-03": {
-      id: "2019-06-03",
+    1559606400000: {
+      id: 1559606400000,
       category: "Salary",
       amount: 1200,
       type: "ingresses"

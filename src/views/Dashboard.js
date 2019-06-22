@@ -1,9 +1,90 @@
 import React from "react";
-import { useResults } from "../selectors";
+import { useTotalBalance, useTransactions } from "../selectors";
 import { navigate } from "@reach/router";
+import Transactions from "./Transactions";
 
 function Dashboard() {
-  const results = useResults();
+  const totalBalance = useTotalBalance();
+  const transactions = useTransactions();
+
+  function minDate(transactions) {
+    const dates = transactions.map(transaction => new Date(transaction.id));
+    var min = dates.reduce(function(a, b) {
+      return a < b ? a : b;
+    });
+
+    return min;
+  }
+
+  const min = minDate(transactions);
+  var compareMonth = min.getMonth() + 1;
+  var compareYear = min.getFullYear();
+  var results = [];
+  let result = {
+    month: "",
+    year: "",
+    ingresses: 0,
+    withdraws: 0,
+    balance: 0,
+    initialBalance: 0
+  };
+
+  let ingresses = 0;
+  let withdraws = 0;
+  for (var i = 0; i < transactions.length; i++) {
+    if (
+      compareMonth === new Date(transactions[i].id).getMonth() + 1 &&
+      compareYear === new Date(transactions[i].id).getFullYear()
+    ) {
+      if (transactions[i].type === "ingresses") {
+        ingresses += transactions[i].amount;
+      } else {
+        withdraws += transactions[i].amount;
+      }
+      Object.assign(result, {
+        month: compareMonth,
+        year: compareYear,
+        ingresses: ingresses,
+        withdraws: withdraws,
+        balance: ingresses + withdraws
+      });
+    } else {
+      results.push(result);
+      result = {};
+      compareMonth = new Date(transactions[i].id).getMonth() + 1;
+      compareYear = new Date(transactions[i].id).getFullYear();
+      ingresses = 0;
+      withdraws = 0;
+      if (transactions[i].type === "ingresses") {
+        ingresses += transactions[i].amount;
+      } else {
+        withdraws += transactions[i].amount;
+      }
+    }
+  }
+  if (result.hasOwnProperty("month")) {
+    results.push(result);
+  } else {
+    Object.assign(result, {
+      month: compareMonth,
+      year: compareYear,
+      ingresses: ingresses,
+      withdraws: withdraws,
+      balance: ingresses + withdraws
+    });
+
+    results = results.concat(result);
+  }
+
+  for (var i = 0; i < results.length; i++) {
+    if (i !== 0) {
+      var previous = results[i === 0 ? results.length - 1 : i - 1];
+      Object.assign(results[i], {
+        initialBalance: previous.balance,
+        balance: ingresses + withdraws + previous.balance
+      });
+    }
+  }
 
   function handleClick(event) {
     event.preventDefault();
@@ -15,7 +96,7 @@ function Dashboard() {
       <div>
         <div>
           <span>Balance</span>
-          <div>{results[results.length - 1].finalBalance}</div>
+          <div>{totalBalance}</div>
         </div>
         <button onClick={handleClick}>New Transaction</button>
       </div>
@@ -34,16 +115,14 @@ function Dashboard() {
           </thead>
           <tbody>
             {results.map((result, index) => {
-              const splittedId = result.id.split("-");
-              const month = splittedId[1];
               return (
-                <tr>
-                  <th key={index}>{new Date(index).getFullYear()}</th>
-                  <th key={index}> {month}</th>
-                  <th key={index}> {result.initialBalance}</th>
-                  <th key={index}> {result.ingresses}</th>
-                  <th key={index}> {result.withdraws}</th>
-                  <th key={index}> {result.finalBalance}</th>
+                <tr key={result.id}>
+                  <th>{result.year}</th>
+                  <th> {result.month}</th>
+                  <th> {result.initialBalance}</th>
+                  <th> {result.ingresses}</th>
+                  <th> {result.withdraws}</th>
+                  <th> {result.balance}</th>
                 </tr>
               );
             })}
