@@ -45,42 +45,54 @@ function NewTransaction() {
     navigate(`/transactions/${year}-${month}`);
   }
 
+  const submitCss = {
+    display: "block",
+    marginTop: 10,
+    border: 0,
+    borderRadius: 8,
+    backgroundColor: "green",
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    width: 200,
+    height: 40,
+    "&:hover": {
+      backgroundColor: "#33FF33"
+    }
+  };
+
+  const formCss = {
+    width: "65%",
+    margin: "0 auto",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "center"
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="amount">
-        <input type="number" min="0" name="amount" />
-      </label>
-      <label htmlFor="category">
-        <select name="category">
-          <option disabled>Choose a category</option>
-          {categories.map(category => {
-            return <option value={category}>{category}</option>;
-          })}
-        </select>
-      </label>
-      <fieldset>
-        <input type="radio" id="ingress" name="type" value="ingresses" />
-        <label htmlFor="ingress">Income</label>
-        <input type="radio" id="withdraw" name="type" value="withdraws" />
-        <label htmlFor="withdraw">Withdraw</label>
-      </fieldset>
-      <input
-        type="submit"
-        css={{
-          display: "block",
-          margin: "0 auto",
-          border: 0,
-          borderRadius: 8,
-          backgroundColor: "green",
-          color: "#FFFFFF",
-          fontWeight: "bold",
-          width: 200,
-          height: 40,
-          "&:hover": {
-            backgroundColor: "#33FF33"
-          }
-        }}
-      />
+    <form onSubmit={handleSubmit} css={formCss}>
+      <section>
+        <label htmlFor="amount">
+          <input type="number" min="0" name="amount" />
+        </label>
+        <label htmlFor="category">
+          <select css={{ fontSize: 16 }} name="category">
+            <option disabled>Choose a category</option>
+            {categories.map(category => {
+              return <option value={category}>{category}</option>;
+            })}
+          </select>
+        </label>
+        <fieldset css={{ textAlign: "center", padding: 0 }}>
+          <input type="radio" id="ingress" name="type" value="ingresses" />
+          <label htmlFor="ingress">Income</label>
+          <input type="radio" id="withdraw" name="type" value="withdraws" />
+          <label htmlFor="withdraw">Withdraw</label>
+        </fieldset>
+      </section>
+      <section>
+        <input type="submit" css={submitCss} />
+      </section>
     </form>
   );
 }
