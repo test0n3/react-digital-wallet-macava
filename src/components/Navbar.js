@@ -10,7 +10,8 @@ function Nabvar() {
     padding: "1.5em",
     background: "#21B396",
     color: "#fff",
-    marginBottom: "2em"
+    marginBottom: "2em",
+    boxShadow: "3px 3px 10px #000000"
   };
 
   const logoCss = {
