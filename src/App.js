@@ -16,7 +16,9 @@ function App() {
         styles={{
           body: {
             fontFamily: "'Helvetica Neue', sans-serif",
-            margin: 0
+            margin: 0,
+            height: "100vh",
+            width: "100%"
           }
         }}
       />
