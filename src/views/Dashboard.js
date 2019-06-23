@@ -139,7 +139,21 @@ function Dashboard() {
           <span css={{ fontWeight: "bolder", fontSize: 30 }}>Balance</span>
           <div css={{ fontSize: 30, paddingLeft: 6 }}>${totalBalance}</div>
         </div>
-        <button onClick={handleClick}>New Transaction</button>
+        <button
+          type="button"
+          onClick={handleClick}
+          css={{
+            padding: "10px 20px",
+            borderRadius: 8,
+            color: "#FFFFFF",
+            backgroundColor: "green",
+            textDecoration: "none",
+            border: "none",
+            "&:hover": { backgroundColor: "#33FF33" }
+          }}
+        >
+          New Transaction
+        </button>
       </div>
       <h1 css={{ marginLeft: "2%", fontSize: 40 }}>
         Ingresses and withdraws per month
@@ -160,19 +174,38 @@ function Dashboard() {
             {results.map(result => {
               return (
                 <tr key={result.id}>
-                  <td css={tdCss}>{result.year}</td>
-                  <td css={tdCss}>
+                  <td css={{ ...tdCss, textAlign: "center" }}>{result.year}</td>
+                  <td
+                    css={{
+                      ...tdCss,
+                      textAlign: "center",
+                      cursor: "pointer",
+                      "&:hover": { backgroundColor: "#999999" }
+                    }}
+                  >
                     <Link
-                      css={{ color: "white" }}
+                      css={{
+                        color: "white",
+                        textDecoration: "none",
+                        display: "block"
+                      }}
                       to={`/transactions/${result.year}-${result.month}`}
                     >
                       {result.month}
                     </Link>
                   </td>
-                  <td css={tdCss}>{result.initialBalance}</td>
-                  <td css={tdCss}>{result.ingresses}</td>
-                  <td css={tdCss}>{result.withdraws}</td>
-                  <td css={tdCss}>{result.balance}</td>
+                  <td css={{ ...tdCss, textAlign: "center" }}>
+                    {result.initialBalance}
+                  </td>
+                  <td css={{ ...tdCss, textAlign: "center" }}>
+                    {result.ingresses}
+                  </td>
+                  <td css={{ ...tdCss, textAlign: "center" }}>
+                    {result.withdraws}
+                  </td>
+                  <td css={{ ...tdCss, textAlign: "center" }}>
+                    {result.balance}
+                  </td>
                 </tr>
               );
             })}
