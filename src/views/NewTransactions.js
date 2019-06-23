@@ -50,13 +50,14 @@ function NewTransaction() {
     marginTop: 10,
     border: 0,
     borderRadius: 8,
-    backgroundColor: "green",
+    backgroundColor: "#21B396",
     color: "#FFFFFF",
     fontWeight: "bold",
     width: 200,
     height: 40,
+    fontSize: 20,
     "&:hover": {
-      backgroundColor: "#33FF33"
+      backgroundColor: "#1E8979"
     }
   };
 
@@ -76,14 +77,21 @@ function NewTransaction() {
           <input type="number" min="0" name="amount" />
         </label>
         <label htmlFor="category">
-          <select css={{ fontSize: 16 }} name="category">
+          <select css={{ fontSize: 16, borderRadius: 120 }} name="category">
             <option disabled>Choose a category</option>
             {categories.map(category => {
               return <option value={category}>{category}</option>;
             })}
           </select>
         </label>
-        <fieldset css={{ textAlign: "center", padding: 0 }}>
+        <fieldset
+          css={{
+            textAlign: "center",
+            padding: 5,
+            borderRadius: 50,
+            margin: 10
+          }}
+        >
           <input type="radio" id="ingress" name="type" value="ingresses" />
           <label htmlFor="ingress">Income</label>
           <input type="radio" id="withdraw" name="type" value="withdraws" />
