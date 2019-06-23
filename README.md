@@ -1,3 +1,33 @@
+# Redux Extended Project
+
+Create a digital wallet application using React and Redux.
+
+## Requirements
+
+- [x] It should be a single user application.
+- [x] The user should be able to track their withdraws and ingresses.
+- [x] Each withdraw and ingress should be categorized.
+- [x] The user should be able to see a table with all their withdraws and ingresses categorized.
+- [x] The user should be able to see what category produce the biggest amount of withdraws and ingresses.
+- [x] The application should have a route to see how much money it has, how much money ingress that month and how much money were withdrawn that month.
+- [x] The application should have a route to add a new withdraw or ingress.
+- [ ] The application should have a route to see the categorized withdraws and ingresses per month.
+- [x] At the end of each month the final amount of money should be copied to the next month, previous months should not be updatable.
+
+## Acceptance Criteria
+
+- [x] It must use semantic HTML
+- [x] It must use React
+- [ ] It must be Responsive
+- [x] It must use CSS in JS
+- [ ] It must have tests
+- [x] It must use Reach Router
+- [ ] It could use Reach UI components
+- [x] It must use Redux
+- [x] It must pass with green the Accessibility tests of the Chrome Audits
+- [x] It must pass with green the Best Practices tests of the Chrome Audits
+- [ ] It must pass with green the SEO tests of the Chrome Audits
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Team Members
