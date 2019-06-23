@@ -43,22 +43,6 @@ const initialState = {
       type: "ingresses"
       // 6/3/2019
     }
-  },
-  results: {
-    "2019-05": {
-      id: "2019-05",
-      initialBalance: 100,
-      ingresses: 2200,
-      withdraws: -200,
-      finalBalance: 2100
-    },
-    "2019-06": {
-      id: "2019-06",
-      initialBalance: 2100,
-      ingresses: 1200,
-      withdraws: -700,
-      finalBalance: 2600
-    }
   }
 };
 
