@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import React from "react";
 import { useTotalBalance, useTransactions } from "../selectors";
 import { navigate, Link } from "@reach/router";
@@ -91,42 +93,86 @@ function Dashboard() {
     navigate("/new-transactions");
   }
 
+  const upperContainer = {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "96%",
+    padding: "0px 20px",
+    marginBottom: 15
+  };
+
+  const balanceContainer = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "16%"
+  };
+
+  const tableCss = {
+    width: "80%",
+    borderCollapse: "collapse",
+    margin: "0 auto"
+  };
+
+  const thCss = {
+    background: "#333",
+    color: "white",
+    fontWeight: "bolder",
+    padding: 6,
+    border: "1px solid #ccc",
+    textAlign: "left"
+  };
+
+  const tdCss = {
+    background: "#545454",
+    color: "white",
+    fontWeight: "bold",
+    padding: 6,
+    border: "1px solid #ccc",
+    textAlign: "left"
+  };
+
   return (
     <>
-      <div>
-        <div>
-          <span>Balance</span>
-          <div>{totalBalance}</div>
+      <div css={upperContainer}>
+        <div css={balanceContainer}>
+          <span css={{ fontWeight: "bolder", fontSize: 30 }}>Balance</span>
+          <div css={{ fontSize: 30, paddingLeft: 6 }}>${totalBalance}</div>
         </div>
         <button onClick={handleClick}>New Transaction</button>
       </div>
-      <div> Ingresses and withdraws per month </div>
+      <h1 css={{ marginLeft: "2%", fontSize: 40 }}>
+        Ingresses and withdraws per month
+      </h1>
       <div>
-        <table>
+        <table css={tableCss}>
           <thead>
             <tr>
-              <th>Year</th>
-              <th>Month</th>
-              <th>Initial Balance</th>
-              <th>Ingresses</th>
-              <th>Withdraws</th>
-              <th>Final Balance</th>
+              <th css={thCss}>Year</th>
+              <th css={thCss}>Month</th>
+              <th css={thCss}>Initial Balance</th>
+              <th css={thCss}>Ingresses</th>
+              <th css={thCss}>Withdraws</th>
+              <th css={thCss}>Final Balance</th>
             </tr>
           </thead>
           <tbody>
             {results.map(result => {
               return (
                 <tr key={result.id}>
-                  <th>{result.year}</th>
-                  <th>
-                    <Link to={`/transactions/${result.year}-${result.month}`}>
+                  <td css={tdCss}>{result.year}</td>
+                  <td css={tdCss}>
+                    <Link
+                      css={{ color: "white" }}
+                      to={`/transactions/${result.year}-${result.month}`}
+                    >
                       {result.month}
                     </Link>
-                  </th>
-                  <th>{result.initialBalance}</th>
-                  <th>{result.ingresses}</th>
-                  <th>{result.withdraws}</th>
-                  <th>{result.balance}</th>
+                  </td>
+                  <td css={tdCss}>{result.initialBalance}</td>
+                  <td css={tdCss}>{result.ingresses}</td>
+                  <td css={tdCss}>{result.withdraws}</td>
+                  <td css={tdCss}>{result.balance}</td>
                 </tr>
               );
             })}
