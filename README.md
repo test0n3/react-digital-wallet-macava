@@ -1,10 +1,8 @@
-<<<<<<< HEAD
+
 Source: [GitHub Original Poster](https://github.com/codeableorg/react-digital-wallet-macava)
 
 Demo available at: [Netlify MaCaVa](https://sad-northcutt-a362e1.netlify.com/)
 
-=======
->>>>>>> 864051f1717e43196dd51c12a9ab0254959e99b3
 # Redux Extended Project
 
 Create a digital wallet application using React and Redux.
