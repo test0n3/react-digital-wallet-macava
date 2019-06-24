@@ -7,6 +7,7 @@ const initialState = {
     "Salary",
     "ExtraIncome"
   ],
+
   transactions: {
     1556755200000: {
       id: 1556755200000,
