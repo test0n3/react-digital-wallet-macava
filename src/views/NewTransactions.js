@@ -34,9 +34,9 @@ function NewTransaction() {
     event.preventDefault();
     const data = toJSON(event.target.elements);
     if (data.type === "withdraws") {
-      data.amount = data.amount * -1;
+      data.amount *= -1;
     } else {
-      data.amount = data.amount * 1;
+      data.amount *= 1;
     }
     Object.assign(data, { id: Date.now() });
     addTransaction(data);
@@ -78,7 +78,7 @@ function NewTransaction() {
         </label>
         <label htmlFor="category">
           <select css={{ fontSize: 16, borderRadius: 120 }} name="category">
-            <option disabled>Choose a category</option>
+            <option hidden>Choose a category</option>
             {categories.map(category => {
               return <option value={category}>{category}</option>;
             })}

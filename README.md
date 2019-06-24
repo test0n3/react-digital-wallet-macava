@@ -1,4 +1,32 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Redux Extended Project
+
+Create a digital wallet application using React and Redux.
+
+## Requirements
+
+- [x] It should be a single user application.
+- [x] The user should be able to track their withdraws and ingresses.
+- [x] Each withdraw and ingress should be categorized.
+- [x] The user should be able to see a table with all their withdraws and ingresses categorized.
+- [x] The user should be able to see what category produce the biggest amount of withdraws and ingresses.
+- [x] The application should have a route to see how much money it has, how much money ingress that month and how much money were withdrawn that month.
+- [x] The application should have a route to add a new withdraw or ingress.
+- [ ] The application should have a route to see the categorized withdraws and ingresses per month.
+- [x] At the end of each month the final amount of money should be copied to the next month, previous months should not be updatable.
+
+## Acceptance Criteria
+
+- [x] It must use semantic HTML
+- [x] It must use React
+- [ ] It must be Responsive
+- [x] It must use CSS in JS
+- [ ] It must have tests
+- [x] It must use Reach Router
+- [ ] It could use Reach UI components
+- [x] It must use Redux
+- [x] It must pass with green the Accessibility tests of the Chrome Audits
+- [x] It must pass with green the Best Practices tests of the Chrome Audits
+- [ ] It must pass with green the SEO tests of the Chrome Audits
 
 ## Team Members
 
@@ -6,11 +34,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Marieth Pérez
 - Valeria Vassallo
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm start` or `yarn start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -18,12 +48,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
+### `npm test` or `yarn test`
 
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### `npm run build` or `yarn build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -33,7 +63,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### `npm run eject` or `yarn eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
@@ -72,3 +102,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### Screen captures
+
+![Main screen](images/pic01.png)
+![new transaction](images/pic02.png)
+![Month detail](images/pic03.png)
